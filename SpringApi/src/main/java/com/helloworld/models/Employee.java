@@ -5,6 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -17,22 +18,23 @@ public class Employee {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotNull(message = "Name should not be null")
+    @NotEmpty(message = "Name should not be null")
     private String name;
 
     @Column(name = "age", nullable = false)
     private Long age = 0L;
 
     @Column(name = "location", nullable = false)
-    @NotNull(message = "location should not be null")
+    @NotEmpty(message = "location should not be null")
     private String location;
 
     @Column(name = "email", nullable = false)
-    @Email(message = "please enter the valid email ${email}")
+    @Email(message = "please enter the valid email")
+    @NotEmpty(message = "email should not be null")
     private String email;
 
     @Column(name = "department", nullable = false)
-    @NotNull(message = "department should not be null")
+    @NotEmpty(message = "department should not be null")
     private String department;
 
     @CreationTimestamp
