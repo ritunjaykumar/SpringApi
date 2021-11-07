@@ -39,4 +39,14 @@ public class EmployeeService implements IEmployeeService {
     public Employee updateEmployee(Employee employee) {
         return eRepository.save(employee);
     }
+
+    @Override
+    public List<Employee> getEmployeeByName(String name) {
+        return eRepository.findByName(name);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByNameAndLocation(String name, String location) {
+        return eRepository.findByNameAndLocation(name, location);
+    }
 }

@@ -2,6 +2,7 @@ package com.helloworld.iservices;
 
 import com.helloworld.models.Employee;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface IEmployeeService {
@@ -14,4 +15,8 @@ public interface IEmployeeService {
     void deleteEmployee(Long empID);
 
     Employee updateEmployee(Employee employee);
+
+    List<Employee> getEmployeeByName(@NotNull String name);
+
+    List<Employee> getEmployeeByNameAndLocation(String name, String location);
 }
