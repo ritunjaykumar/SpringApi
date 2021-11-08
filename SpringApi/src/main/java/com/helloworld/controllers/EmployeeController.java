@@ -13,14 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-    //localhost:8080/employees
+    //localhost:8080/employee
 
     @Autowired
     private IEmployeeService employeeService;
 
-    @PostMapping("/get")
-    public ResponseEntity<List<Employee>> getEmployees() {
-        return new ResponseEntity<>(employeeService.getEmployees(), HttpStatus.OK);
+    @PostMapping("/get/{pageNumber}/{pageSize}")
+    public ResponseEntity<List<Employee>> getEmployees(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
+        return new ResponseEntity<>(employeeService.getEmployees(pageNumber, pageSize), HttpStatus.OK);
     }
 
     @PostMapping("/get/{id}")
@@ -57,6 +57,13 @@ public class EmployeeController {
     @PostMapping("/get/name/{name}/{location}")
     public ResponseEntity<List<Employee>> getEmployeeByNameAndLocation(@PathVariable String name, @PathVariable String location) {
         List<Employee> employeeList = employeeService.getEmployeeByNameAndLocation(name, location);
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    }
+
+    @PostMapping("/get/name/filter/{keyWord}")
+    public ResponseEntity<List<Employee>> getNameByKeyword(@PathVariable String keyWord) {
+        List<Employee> employeeList = employeeService.getEmployeeByKeyword(keyWord);
+
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface IEmployeeService {
-    List<Employee> getEmployees();
+    List<Employee> getEmployees(int pageNumber, int pageSize);
 
     Employee saveEmployee(Employee employee);
 
@@ -19,4 +19,6 @@ public interface IEmployeeService {
     List<Employee> getEmployeeByName(@NotNull String name);
 
     List<Employee> getEmployeeByNameAndLocation(String name, String location);
+
+    List<Employee> getEmployeeByKeyword(String keyword);
 }

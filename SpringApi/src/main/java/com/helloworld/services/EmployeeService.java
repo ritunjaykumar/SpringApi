@@ -4,6 +4,10 @@ import com.helloworld.irepositories.IEmployeeRepository;
 import com.helloworld.iservices.IEmployeeService;
 import com.helloworld.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +19,10 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository eRepository;
 
     @Override
-    public List<Employee> getEmployees() {
-        return eRepository.findAll();
+    public List<Employee> getEmployees(int pageNumber, int pageSize) {
+        Pageable pages = PageRequest.of(pageNumber, pageSize, Sort.Direction.DESC,"id");
+        Page<Employee> employeePage = eRepository.findAll(pages);
+        return employeePage.getContent();
     }
 
     @Override
@@ -48,5 +54,12 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public List<Employee> getEmployeeByNameAndLocation(String name, String location) {
         return eRepository.findByNameAndLocation(name, location);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByKeyword(String keyword) {
+        //TODO add sorting logic
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        return eRepository.findByNameContaining(keyword, sort);
     }
 }
