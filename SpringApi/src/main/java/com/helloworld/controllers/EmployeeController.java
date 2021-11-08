@@ -67,4 +67,12 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
+    @PostMapping("/get/{name}/or/{location}")
+    public ResponseEntity<List<Employee>> getEmployeeByNameOrLocation(@PathVariable String name,
+                                                                      @PathVariable String location) {
+        List<Employee> employeeList = employeeService.getEmployeeByNameOrLocation(name, location);
+
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    }
+
 }
